@@ -42,16 +42,21 @@
 
 #landuse_overlays[type='nature_reserve'][zoom>6] {
   line-color: darken(@wooded,25%);
-  line-opacity:  0.3;
+  line-opacity:  0;
   line-dasharray: 1,1;
   polygon-fill: darken(@wooded,25%);
-  polygon-opacity: 0.1;
+  polygon-opacity: 0;
   [zoom=7] { line-width: 0.4; }
   [zoom=8] { line-width: 0.6; }
   [zoom=9] { line-width: 0.8; }
   [zoom=10] { line-width: 1.0; }
   [zoom=11] { line-width: 1.5; }
   [zoom>=12] { line-width: 2.0; }
+  [area > 230000000] {
+    line-opacity: 0;
+    polygon-fill: darken(@water,10%);
+    polygon-opacity: 0;
+    }
 }
  
 #landuse_overlays[type='wetland'][zoom>11] {
@@ -76,7 +81,7 @@
 // so we use a separate layer that does this for us.
 #buildings[zoom>=17][type != 'hedge'] {
   building-fill:@building;
-  building-height:1.25;
+  building-height:2;
 }
 
 #buildings[zoom>=17][type = 'hedge'] {
@@ -94,6 +99,7 @@ Map { background-color: @water; }
 #water_gen1[zoom>9][zoom<=12],
 #water[zoom>12] {
   polygon-fill: @water;
+  polygon-gamma: 0.75;
 }
 
 /* ================================================================== */
@@ -175,7 +181,7 @@ Map { background-color: @water; }
 
 #barrier_points[zoom>=17][stylegroup = 'divider'] {
   marker-height: 2;
-  marker-fill: #c7c7c7;
+  marker-fill: rgb(200, 200, 200);
   marker-line-opacity:0;
   marker-allow-overlap:true;
 }
@@ -186,13 +192,13 @@ Map { background-color: @water; }
 
 #barrier_lines[zoom>=17][stylegroup = 'gate'] {
   line-width:2.5;
-  line-color:#aab;
+  line-color:rgb(180, 180, 180);
   line-dasharray:3,2;
 }
 
 #barrier_lines[zoom>=17][stylegroup = 'fence'] {
   line-width:1.75;
-  line-color:#aab;
+  line-color:rgb(180, 180, 180);
   line-dasharray:1,1;
 }
 

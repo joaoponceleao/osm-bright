@@ -16,7 +16,7 @@
   text-placement:point;
   text-fill:@country_text;
   text-halo-fill: @country_halo;
-  text-halo-radius: 1;
+  text-halo-radius: @halo_radius;
   [zoom=3] {
     text-size:10 + @text_adjust;
     text-wrap-width: 40;
@@ -26,7 +26,7 @@
     text-wrap-width: 50;
   }
   [zoom>4] {
-    text-halo-radius: 2;
+    text-halo-radius: @halo_radius * 2;
   }
   [zoom=5] {
     text-size:11 + @text_adjust;
@@ -51,7 +51,7 @@
   text-placement:point;
   text-fill:@state_text;
   text-halo-fill: @state_halo;
-  text-halo-radius: 1;
+  text-halo-radius: @halo_radius;
   [zoom=6] {
     text-size:10 + @text_adjust;
     text-wrap-width: 40;
@@ -61,7 +61,7 @@
     text-wrap-width: 50;
   }
   [zoom>8] {
-    text-halo-radius: 2;
+    text-halo-radius: @halo_radius * 2;
   }
   [zoom=8] {
     text-size:11 + @text_adjust;
@@ -88,28 +88,30 @@
   text-placement:point;
   text-fill:@city_text;
   text-halo-fill:@city_halo;
-  text-halo-radius:2;
+  text-halo-radius:@halo_radius * 2;
   [zoom<=8] {
     text-size: 10;
     text-halo-radius:1;
   }
   [zoom=9] {
-    text-size:10;
+    text-size:11;
     text-wrap-width: 60;
   }
   [zoom=10] {
-    text-size:11;
+    text-size:12;
     text-wrap-width: 70;
   }
   [zoom=11] {
-    text-size:12;
-    text-character-spacing: 1;
-    text-wrap-width: 80;
-  }
-  [zoom=12] {
     text-size:13;
     text-character-spacing: 1;
+    text-wrap-width: 80;
+    text-transform: uppercase;
+  }
+  [zoom=12] {
+    text-size:14;
+    text-character-spacing: 1;
     text-wrap-width: 100;
+    text-transform: uppercase;
   }
   [zoom=13] {
     text-size:14;
@@ -140,13 +142,15 @@
   text-fill:@town_text;
   text-size:9;
   text-halo-fill:@town_halo;
-  text-halo-radius:1;
+  text-halo-radius:@halo_radius;
   text-wrap-width: 50;
   [zoom>=10] {
-    text-halo-radius:2;
+    text-halo-radius:@halo_radius * 2;
     text-size: 10;
   }
-  [zoom>=11]{ text-size:11; }
+  [zoom>=11]{
+    text-size:11;
+  }
   [zoom>=12]{
     text-size:12;
     text-line-spacing: 1;
@@ -190,8 +194,9 @@
   text-fill:@other_text;
   text-size:10;
   text-halo-fill:@other_halo;
-  text-halo-radius:1;
+  text-halo-radius:@halo_radius;
   text-wrap-width: 30;
+  text-margin: 60;
   [zoom>=14] {
     text-size:11;
     text-character-spacing: 1;
@@ -199,7 +204,7 @@
     text-line-spacing: 1;
   }
   [zoom>=15] {
-    text-halo-radius: 2;
+    text-halo-radius: @halo_radius * 2;
     text-transform: uppercase;
     text-character-spacing: 1;
     text-wrap-width: 60; 
@@ -231,7 +236,7 @@
   text-fill:@locality_text;
   text-size:9;
   text-halo-fill:@locality_halo;
-  text-halo-radius:1;
+  text-halo-radius:@halo_radius;
   text-wrap-width: 30;
   [zoom>=16] {
     text-size:10;
@@ -266,12 +271,14 @@
   [zoom>=17][area>5000],
   [zoom>=18][area>=0] {
     text-name: "[name]";
-    text-halo-radius: 1.5;
+    text-halo-radius: @halo_radius * 1.5;
     text-face-name:@sans;
-    text-size: 11;
+    text-size: 9;
     text-wrap-width:30;
-    text-fill: #888;
-    text-halo-fill: #fff;
+    text-fill: rgb(130, 130, 130);
+    text-halo-fill: white;
+    text-placement: interior;
+    text-margin: 150;
     // Specific style overrides for different types of areas:
     [type='park'][zoom>=10] {
       text-face-name: @sans_lt_italic;
@@ -306,21 +313,21 @@
   [zoom=17][area>20000],
   [zoom=18][area>5000] {
     text-name: "[name]";
-    text-size: 13;
+    text-size: 11;
     text-wrap-width: 60;
     text-character-spacing: 1;
-    text-halo-radius: 2;
+    text-halo-radius: @halo_radius * 2;
   }
   [zoom=16][area>1600000],
   [zoom=17][area>80000],
   [zoom=18][area>20000] {
-    text-size: 15;
+    text-size: 12;
     text-character-spacing: 2;
     text-wrap-width: 120;
   }
   [zoom>=17][area>1600000],
   [zoom>=18][area>80000] {
-    text-size: 20;
+    text-size: 14;
     text-character-spacing: 3;
     text-wrap-width: 180;
   }
@@ -332,7 +339,7 @@
 #poi[type='library'][zoom>=17] {
   text-name:"[name]";
   text-face-name:@sans;
-  text-size:10;
+  text-size:9;
   text-wrap-width:30;
   text-fill: @poi_text;
 }
@@ -349,13 +356,13 @@
   text-face-name: @sans_italic;
   text-fill: @water * 0.75;
   text-halo-fill: fadeout(lighten(@water,5%),25%);
-  text-halo-radius: 1;
+  text-halo-radius: @halo_radius;
   text-placement: line;
   text-min-distance: 400;
-  text-size: 10;
+  text-size: 11;
   [type='river'][zoom=15],
   [type='canal'][zoom=17] {
-    text-size: 11;
+    text-size: 12;
   }
   [type='river'][zoom>=16],
   [type='canal'][zoom=18] {
@@ -370,9 +377,9 @@
 
 #motorway_label[zoom>=11][zoom<=14][reflen<=8] {
   shield-name: "[ref]";
-  shield-size: 9;
+  shield-size: 8;
   shield-face-name: @sans_bold;
-  shield-fill: #fff;
+  shield-fill: white;
   shield-file: url(img/shield-motorway-1.png);
   [type='motorway'] {
     [reflen=1] { shield-file: url(img/shield-motorway-1.png); }
@@ -394,9 +401,9 @@
     [reflen=7] { shield-file: url(img/shield-trunk-7.png); }
     [reflen=8] { shield-file: url(img/shield-trunk-8.png); }
   }
-  [zoom=11] { shield-min-distance: 60; } //50
-  [zoom=12] { shield-min-distance: 80; } //60
-  [zoom=13] { shield-min-distance: 120; } //120
+  [zoom=11] { shield-min-distance: 60; }
+  [zoom=12] { shield-min-distance: 80; }
+  [zoom=13] { shield-min-distance: 120; }
   [zoom=14] { shield-min-distance: 180; }
 }
 
@@ -407,37 +414,33 @@
   text-placement:line;
   text-fill:@road_text;
   text-halo-fill:@road_halo;
-  text-halo-radius:1;
-  text-min-distance:60;
-  text-size:10;
-  [zoom=11] { text-min-distance:70; }
-  [zoom=12] { text-min-distance:80; }
-  [zoom=13] { text-min-distance:100; }
+  text-halo-radius:@halo_radius;
+  text-min-distance:200;
+  text-size:9;
 }
 
-#mainroad_label[type='primary'][zoom>12],
-#mainroad_label[type='secondary'][zoom>13],
-#mainroad_label[type='tertiary'][zoom>13] {
+#mainroad_label[type='primary'][zoom>14],
+#mainroad_label[type='secondary'][zoom>14],
+#mainroad_label[type='tertiary'][zoom>14] {
   text-name:'[name]';
   text-face-name:@sans;
   text-placement:line;
   text-fill:@road_text;
   text-halo-fill:@road_halo;
-  text-halo-radius:1;
-  text-min-distance:60;
-  text-size:11;
+  text-halo-radius:@halo_radius;
+  text-min-distance:120;
+  text-size:9;
 }
 
 #minorroad_label[zoom>14] {
   text-name:'[name]';
   text-face-name:@sans;
   text-placement:line;
-  text-size:9;
   text-fill:@road_text;
   text-halo-fill:@road_halo;
-  text-halo-radius:1;
-  text-min-distance:60;
-  text-size:11;
+  text-halo-radius:@halo_radius * 2;
+  text-min-distance:120;
+  text-size:8;
 }
 
 /* ================================================================== */

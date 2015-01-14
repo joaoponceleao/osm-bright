@@ -1,7 +1,12 @@
-OSM Bright
-==========
+OSM GNA
+=======
 
-![screenshot](https://raw.github.com/mapbox/osm-bright/master/preview.png)
+![screenshot](https://raw.github.com/joaoponceleao/osm-gna/master/preview.png)
+
+Fork of OSM Bright for the default OSM base map of the GNA project.
+
+OSM BRIGHT
+----------
 
 OSM Bright is a sensible starting point for quickly making beautiful maps based
 on an OpenStreetMap database. It is written in the [Carto][] styling language
